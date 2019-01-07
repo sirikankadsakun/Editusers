@@ -2,16 +2,23 @@ import React,{Component} from 'react';
 import './netlog.css';
 import Appheader from './Components/Appheader';
 import Applogin from './Components/Applogin';
+
 class Netlog extends Component {
     state = { }
-    render() {
-        return(
-            <div>
-                <Appheader />
-            <Applogin />
-                      </div>
 
-        );
+    constructor(props){
+        super(props);
+        sessionStorage.clear();
+    }
+    render() {
+        return ( 
+            <div>
+             <Appheader />
+            <Applogin />
+            </div>
+
+        );    
+        
     }
     
 }

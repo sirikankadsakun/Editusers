@@ -20,35 +20,32 @@ class Applogin extends Component {
      users_password_Change = (event) => {
         this.setState({users_password:event.target.value});
      }
-     submitLogin = (event) => {
+     submitLogin = async (event) => {
          event.preventDefault();
          let username = this.state.users_name;
          let password = this.state.users_password; 
          if (username != '' && password != ''){
              $('.alert').hide();
         let result = await axios.post
-        ('htpp://locahost/netlogapi/users.php',{
+        ('http://localhost/netlogapi/users.php',{
             ApiKey: 'NetLogApi',
             fn: 'Login',
             users_name: username,
             users_password: password
         });
-        //   if(this.users != false){
-      
-        //     sessionStorage.setItem('loginuser',JSON.stringify(this.users));
-        //     if(this.users.users_status == 'admin')
-        //     this.router.navigate(['/admin']);
-        //     else  if(this.users.users_status == 'user')
-        //     this.router.navigate(['/user']);
-        //     else{
-        //       this.error_txt = 'Invalid Username or Password';
-        //       $('.alert').show();
-        //     }
-        //         }else{
-        //     this.error_txt = 'Invalid Username or Password';
-        //     $('.alert').show();
-        //   } 
-      
+        if(result.data !== false){
+          let user = result.data;
+          delete user.users_password;
+          sessionStorage.setItem('loginuser',
+          JSON.stringify(user));
+          if(user.users_status === 'admin'){
+            window.location.replace('/admin');
+
+          }
+          else if(user.users_status === 'user'){
+            window.location.replace('/user');
+                  }    
+                }
           }else{
               this.setState({error_txt:'Please enter Username and Password' });
               $('.alert').show();
