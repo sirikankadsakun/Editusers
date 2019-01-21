@@ -28,7 +28,7 @@ class Applogin extends Component {
              $('.alert').hide();
         let result = await axios.post
         ('http://localhost/netlogapi/users.php',{
-            ApiKey: 'NetLogApi',
+            Apikey: 'NetLogApi',
             fn: 'Login',
             users_name: username,
             users_password: password
